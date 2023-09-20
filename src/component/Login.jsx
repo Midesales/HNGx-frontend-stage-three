@@ -1,0 +1,64 @@
+import React, { useState } from "react";
+import { UserAuth } from "../context/Authcontext";
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+    const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const Navigate = useNavigate();
+
+  const { signIn } = UserAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true); // Set loading to true when the authentication process begins.
+    try {
+      await signIn(email, password);
+      Navigate("/image");
+    } catch (error) {
+      setError("Username and password incorrect");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      console.log(e.message);
+    } finally {
+      setIsLoading(false); // Set loading back to false when the process is finished.
+    }
+  };
+  return (
+    <div className="flex flex-col items-center mt-20 min-h-screen">
+      <div className="border max-w-5xl rounded-lg p-4 m-8 bg-slate-500">
+        <h2 className="text-4xl font-bold text-center">Log in</h2>
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <label className="font-semibold  text-lg">Username</label>
+          <input
+            type="text"
+            placeholder="Enter username"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="rounded-md p-2 w-full"
+          />
+          <label className="font-semibold text-lg">Password</label>
+          <input
+            type="password"
+            placeholder="Enter password"
+            className="rounded-md p-2 w-full"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            className="mt-4 rounded-lg w-full text-center bg-slate-900 text-white p-2"
+            disabled={isLoading} // Disable the button when loading is true.
+          >
+            {isLoading ? "Logging in..." : "Log in"}
+          </button>
+        </form>
+        <p className="font-bold text-red-600 text-lg text-center">{error}</p>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

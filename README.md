@@ -11,15 +11,15 @@ Pexels API: An API for accessing a vast collection of high-quality images.
 
 Features
 
-Image Search: Users can search for images by entering keywords in the search bar. The application fetches images from the Pexels API based on the search query.
-
 Curated Image List: The app displays a curated list of images when users first visit the page. These images are sourced from the Pexels API.
+
+Image Search: Users can search for images by entering keywords such as computer, cars and so on in the search bar. The application fetches images from the Pexels API based on the search query.
 
 User Authentication: Users can log in and log out using the provided authentication system. The username is displayed when logged in. User can only log in with:
 
 Username: user@example.com Password: 1Password
 
-Any username and password apart from the above will throw an error
+Any username and password apart from the above will throw an error and also note that the password is case sensitive
 
 Drag-and-Drop: Users can arrange images within the gallery using drag-and-drop functionality. Images can be moved to different positions within the gallery.
 
@@ -34,6 +34,6 @@ Navigate to the project directory
 
 Install the project dependencies using npm or yarn
 
-Start the development server
+Start the development server with npm run start
 
 The app will be accessible at http://localhost:3000 in your web browser

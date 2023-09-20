@@ -7,5 +7,12 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  variants: {
+    extend: {
+      opacity: ['disabled'],
+      // Add 'group' and 'group-hover' variants
+      display: ['group', 'group-hover'],
+    },
+  },
 }
 

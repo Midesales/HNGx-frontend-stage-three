@@ -61,26 +61,7 @@ function Image() {
        setErrorMessage("");
      }, 3000);
 
-     // Load curated images
-     const apiUrl = `https://api.pexels.com/v1/curated?per_page=${perPage}&page=${currentPage}`;
 
-     axios
-       .get(apiUrl, {
-         headers: {
-           Authorization: API_KEY,
-         },
-       })
-       .then((response) => {
-         if (response.data.photos) {
-           // Append the new images to the existing images array
-           setImages((prevImages) => [...prevImages, ...response.data.photos]);
-           setIsFetching(false);
-         }
-       })
-       .catch((error) => {
-         console.error("Error fetching curated images:", error);
-         setIsFetching(false);
-       });
    } else {
 
      // If query is not empty, perform a search
@@ -102,30 +83,6 @@ function Image() {
              setErrorMessage("");
            }, 3000);
 
-
-          //LOAD CURATED IMAGES
-           const apiUrl = `https://api.pexels.com/v1/curated?per_page=${perPage}&page=${currentPage}`;
-
-           axios
-             .get(apiUrl, {
-               headers: {
-                 Authorization: API_KEY,
-               },
-             })
-             .then((response) => {
-               if (response.data.photos) {
-                 // Append the new images to the existing images array
-                 setImages((prevImages) => [
-                   ...prevImages,
-                   ...response.data.photos,
-                 ]);
-                 setIsFetching(false);
-               }
-             })
-             .catch((error) => {
-               console.error("Error fetching curated images:", error);
-               setIsFetching(false);
-             });
          } else {
            // Append the new images to the existing images array
            setImages((prevImages) => [...prevImages, ...response.data.photos]);

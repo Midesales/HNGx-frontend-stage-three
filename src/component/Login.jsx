@@ -18,7 +18,7 @@ const Login = () => {
       await signIn(email, password);
       Navigate("/image");
     } catch (error) {
-      setError("Username and password incorrect");
+      setError("Login failed");
       setTimeout(() => {
         setError("");
       }, 3000);

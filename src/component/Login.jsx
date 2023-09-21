@@ -55,7 +55,12 @@ const Login = () => {
             {isLoading ? "Logging in..." : "Log in"}
           </button>
         </form>
-        <p className="font-bold text-red-600 text-lg text-center">{error}</p>
+        <div>
+          <p className="font-bold text-red-600 text-lg text-center">{error}</p>
+          <p className="font-bold text-black text-lg text-center py-2">
+            Don't have an account? <a href="/Signup" className="text-blue-300"> Sign up</a>
+          </p>
+        </div>
       </div>
     </div>
   );

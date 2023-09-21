@@ -1,5 +1,5 @@
 import React, { createContext,useState, useContext, useEffect } from 'react';
-import {
+import {createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword
@@ -19,6 +19,10 @@ export const AuthContextProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password)
   };
 
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password)
+  };
+
   const logout = () => {
     return signOut(auth)
   }
@@ -35,7 +39,7 @@ useEffect(() => {
 
 
   return (
-    <UserContext.Provider value={{user, logout, signIn}}>
+    <UserContext.Provider value={{createUser, user, logout, signIn}}>
       {children}
     </UserContext.Provider>
   );

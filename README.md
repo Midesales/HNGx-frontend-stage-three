@@ -15,11 +15,9 @@ Curated Image List: The app displays a curated list of images when users first v
 
 Image Search: Users can search for images by entering keywords such as computer, cars and so on in the search bar. The application fetches images from the Pexels API based on the search query.
 
-User Authentication: Users can log in and log out using the provided authentication system. The username is displayed when logged in. User can only log in with:
+User Authentication: Users can log in and log out using the provided authentication system. The username is displayed when logged in. User can log in with a default username and password and can also signup if they want
 
 Username: user@example.com Password: 1Password
-
-Any username and password apart from the above will throw an error and also note that the password is case sensitive
 
 Drag-and-Drop: Users can arrange images within the gallery using drag-and-drop functionality. Images can be moved to different positions within the gallery.
 

@@ -15,7 +15,7 @@ function Home() {
 
   const perPage = 12; // Number of images per page
 
-  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_KEY = "XFpfo4MQTUIjvzx0S5rUBCiqhg3GLp30gi1RyFud4x6gtb8H80cZ5bmp";
 
   // Function to fetch images
   const fetchImages = (url) => {

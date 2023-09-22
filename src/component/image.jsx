@@ -247,7 +247,11 @@ function Image() {
 
       <div>
         {isFetching ? (
-          <ClipLoader loading={isFetching} size={150} /> // Render loading spinner
+          <div className="flex justify-center items-center w-full p-4">
+            {" "}
+            {/* Render loading spinner */}
+            <ClipLoader loading={isFetching} size={150} />
+          </div>
         ) : (
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="image-list">
@@ -283,10 +287,10 @@ function Image() {
                                 {image.photographer}
                               </p>
                             </div>
-                          )
+                          );
                         }}
                       </Draggable>
-                    )
+                    );
                   })}
                   {provided.placeholder}
                 </div>

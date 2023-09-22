@@ -235,7 +235,7 @@ function Image() {
           />
           <button
             onClick={searchImages}
-            className="px-2 rounded-lg border-2 bg-blue-800 text-white"
+            className="p-2 rounded-lg border-2 bg-blue-800 text-white"
           >
             Search
           </button>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { UserAuth } from "../context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners"; // Import the loading spinner
 import background from "../image/bg-image.jpg";
@@ -11,13 +10,12 @@ function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isFetching, setIsFetching] = useState(true);
   const [query, setQuery] = useState("");
-  const { user, logout } = UserAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const Navigate = useNavigate();
 
   const perPage = 12; // Number of images per page
 
-  const API_KEY = "XFpfo4MQTUIjvzx0S5rUBCiqhg3GLp30gi1RyFud4x6gtb8H80cZ5bmp";
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   // Function to fetch images
   const fetchImages = (url) => {
@@ -98,9 +96,7 @@ function Home() {
   //LOGGING OUT
   const handleLogin = async (e) => {
     try {
-      await logout();
       Navigate("/Login");
-      console.log("You are logged in");
     } catch (error) {
       console.log(error.message);
     }
@@ -160,19 +156,16 @@ function Home() {
   
 
   return (
-    <div className="w-auto">
+    <div className="relative">
       <div
         style={{ backgroundImage: `url(${background})` }}
         className="h-64 bg-center object-cover  text-white p-4"
       >
         <div className="flex justify-between gap-4 p-1 lg:p-4 items-center">
-          <h2 className="font-medium text-sm lg:font-bold lg:text-4xl">
+          <h2 className="font-medium text-lg lg:font-bold lg:text-4xl">
             Gallery
           </h2>
           <div className="flex justify-end gap-2 p-4 items-center">
-            <p className="text-sm lg:text-lg lg:font-bold">
-              {user && user.email}
-            </p>
             <button
               onClick={handleLogin}
               className="rounded-lg bg-blue-600 lg:text-lg p-2 font-bold"
@@ -181,6 +174,11 @@ function Home() {
             </button>
           </div>
         </div>
+        <div className="text-center font-bold">
+          <p>Welcome to Mide's Gallery!</p>
+          <p>Log in to use drag and drop</p>
+        </div>
+
         <div className="flex justify-center items-center mt-6">
           <input
             type="text"
@@ -204,7 +202,6 @@ function Home() {
         </div>
         <div className=" text-center font-bold text-lg py-4">
           <p>{errorMessage}</p>
-          <p>Log in to use drag and drop</p>
         </div>
       </div>
 
@@ -239,6 +236,9 @@ function Home() {
           Load more
         </button>
       </div>
+      <footer className="flex justify-center  bottom-0 w-full p-4 font-bold">
+        <p>&copy; Adeagbo Ayomide</p>
+      </footer>
     </div>
   );
 }

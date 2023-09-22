@@ -37,8 +37,8 @@ function Signup() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-20 min-h-screen">
-    <div className="border max-w-5xl rounded-lg p-4 m-8 bg-[#a6a6e4]">
+    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="border max-w-5xl rounded-lg p-4 m-8 bg-[#7d7d88]">
       <h2 className="text-4xl font-bold text-center py-4">Sign Up</h2>
       <form onSubmit={handleSubmit} className="flex flex-col">
         <label className="font-semibold text-lg">Username</label>
@@ -79,7 +79,7 @@ function Signup() {
 
       <p className="text-center font-bold py-2 text-sm lg:text-lg">
         Already have an account?{" "}
-        <a href="/" className="text-[blue]">
+        <a href="/Login" className="text-[blue]">
           Log in
         </a>
       </p>

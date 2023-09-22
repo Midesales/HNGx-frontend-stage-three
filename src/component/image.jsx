@@ -198,7 +198,7 @@ function Image() {
 
 
   return (
-    <div className="w-auto">
+    <div className="relative">
       <div
         style={{ backgroundImage: `url(${background})` }}
         className="h-64 bg-center object-cover  text-white p-4"
@@ -303,6 +303,9 @@ function Image() {
           Load more
         </button>
       </div>
+      <footer className="flex justify-center  bottom-0 w-full p-4 font-bold">
+        <p>&copy; Adeagbo Ayomide</p>
+      </footer>
     </div>
   );
 }

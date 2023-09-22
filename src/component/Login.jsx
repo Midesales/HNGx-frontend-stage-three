@@ -28,7 +28,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center mt-20 min-h-screen">
+    <div className="flex flex-col items-center justify-center  min-h-screen">
       <div className="border max-w-5xl rounded-lg p-4 m-8 bg-slate-500">
         <h2 className="text-4xl font-bold text-center py-5">Log in</h2>
         <form onSubmit={handleSubmit} className="flex flex-col">
@@ -58,7 +58,7 @@ const Login = () => {
         <div>
           <p className="font-bold text-red-600 text-lg text-center">{error}</p>
           <p className="font-bold text-black text-lg text-center py-2">
-            Don't have an account? <a href="/Signup" className="text-blue-300"> Sign up</a>
+            Don't have an account? <a href="/Signup" className="text-[blue]"> Sign up</a>
           </p>
         </div>
       </div>

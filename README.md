@@ -1,4 +1,4 @@
-This Image Gallery App is a web application that allows users to view, search, and organize images. Users can search for images based on keywords, view a curated list of images, and perform drag-and-drop actions to arrange images within the gallery.
+This Image Gallery App is a web application that allows users to view, search, and organize images. Users can search for images based on keywords, view a curated list of images, and authenticated users can perform drag-and-drop actions to arrange images within the gallery.
 
 Technologies Used
 
@@ -15,11 +15,11 @@ Curated Image List: The app displays a curated list of images when users first v
 
 Image Search: Users can search for images by entering keywords such as computer, cars and so on in the search bar. The application fetches images from the Pexels API based on the search query.
 
-User Authentication: Users can log in and log out using the provided authentication system. The username is displayed when logged in. User can log in with a default username and password and can also signup if they want
+User Authentication: Users can log in and log out using the provided authentication system. The username is displayed when logged in. Users can log in with a default username and password and can also signup if they want
 
 Username: user@example.com Password: 1Password
 
-Drag-and-Drop: Users can arrange images within the gallery using drag-and-drop functionality. Images can be moved to different positions within the gallery.
+Drag-and-Drop: Authenticated Users can arrange images within the gallery using drag-and-drop functionality. Images can be moved to different positions within the gallery.
 
 Load More: Users can load more images by clicking the "Load more" button, which fetches additional images from the API
 

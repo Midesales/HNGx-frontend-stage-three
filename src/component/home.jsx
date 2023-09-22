@@ -44,56 +44,60 @@ function Home() {
     fetchImages(apiUrl);
   }, [currentPage]);
 
-  //SEARCHING IMAGES
-  const searchImages = () => {
-    // Reset images and current page when performing a new search
-    setImages([]);
-    setCurrentPage(1);
-    setIsFetching(true);
+   //SEARCHING IMAGES
+ const searchImages = () => {
+   // Reset images and current page when performing a new search
+   setImages([]);
+   setCurrentPage(1);
+   setIsFetching(true);
 
-    if (query === "") {
-      // Show "Enter a value" error message
-      setErrorMessage("Enter a value");
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 3000);
-    } else {
-      // If query is not empty, perform a search
-      const searchUrl = `https://api.pexels.com/v1/search?query=${query}&per_page=${perPage}&page=${currentPage}`;
+   if (query === "") {
+     // Show "Enter a value" error message
+     setErrorMessage("Enter a value");
+     setTimeout(() => {
+       setErrorMessage("");
+     }, 3000);
 
-      axios
-        .get(searchUrl, {
-          headers: {
-            Authorization: API_KEY,
-          },
-        })
-        .then((response) => {
-          if (response.data.photos.length === 0) {
-            // If no results are found, show "Search failed" error message curated images are display
-            setImages([]); // Clear images
-            setErrorMessage("Search failed");
 
-            setTimeout(() => {
-              setErrorMessage("");
-            }, 3000);
-          } else {
-            // Append the new images to the existing images array
-            setImages((prevImages) => [...prevImages, ...response.data.photos]);
-            setIsFetching(false);
-          }
-        })
-        .catch((error) => {
-          console.error("Error searching images:", error);
-          setIsFetching(false);
-        });
-    }
-  };
+   } else {
+
+     // If query is not empty, perform a search
+     const searchUrl = `https://api.pexels.com/v1/search?query=${query}&per_page=${perPage}&page=${currentPage}`;
+
+     axios
+       .get(searchUrl, {
+         headers: {
+           Authorization: API_KEY,
+         },
+       })
+       .then((response) => {
+         if (response.data.photos.length === 0) {
+           // If no results are found, show "Search failed" error message curated images are display
+           setImages([]); // Clear images
+           setErrorMessage("Search failed");
+
+           setTimeout(() => {
+             setErrorMessage("");
+           }, 3000);
+
+         } else {
+           // Append the new images to the existing images array
+           setImages((prevImages) => [...prevImages, ...response.data.photos]);
+           setIsFetching(false);
+         }
+       })
+       .catch((error) => {
+         console.error("Error searching images:", error);
+         setIsFetching(false);
+       });
+   }
+ };
 
   const changeHandler = (e) => {
     setQuery(e.target.value);
   };
 
-  //LOGGING OUT
+  //LOGGING IN
   const handleLogin = async (e) => {
     try {
       Navigate("/Login");
@@ -159,7 +163,7 @@ function Home() {
     <div className="relative">
       <div
         style={{ backgroundImage: `url(${background})` }}
-        className="h-64 bg-center object-cover  text-white p-4"
+        className="h-fit bg-center object-fill  text-white p-4"
       >
         <div className="flex justify-between gap-4 p-1 lg:p-4 items-center">
           <h2 className="font-medium text-lg lg:font-bold lg:text-4xl">

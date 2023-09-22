@@ -201,7 +201,7 @@ function Image() {
     <div className="relative">
       <div
         style={{ backgroundImage: `url(${background})` }}
-        className="h-64 bg-center object-cover  text-white p-4"
+        className="h-fit bg-center object-fill  text-white p-4"
       >
         <div className="flex justify-between gap-4 p-1 lg:p-4 items-center">
           <h2 className="font-medium text-sm lg:font-bold lg:text-4xl">

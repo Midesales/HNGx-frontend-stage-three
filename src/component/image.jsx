@@ -283,10 +283,10 @@ function Image() {
                                 {image.photographer}
                               </p>
                             </div>
-                          );
+                          )
                         }}
                       </Draggable>
-                    );
+                    )
                   })}
                   {provided.placeholder}
                 </div>

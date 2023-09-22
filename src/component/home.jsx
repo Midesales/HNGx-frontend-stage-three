@@ -195,7 +195,7 @@ function Home() {
           />
           <button
             onClick={searchImages}
-            className="px-2 rounded-lg border-2 bg-blue-800 text-white"
+            className="p-2 rounded-lg border-2  bg-blue-800 text-white"
           >
             Search
           </button>
@@ -207,10 +207,14 @@ function Home() {
 
       <div>
         {isFetching ? (
-          <ClipLoader loading={isFetching} size={150} /> // Render loading spinner
+          <div className="flex justify-center items-center w-full p-4">
+            {" "}
+            {/* Render loading spinner */}
+            <ClipLoader loading={isFetching} size={150} />
+          </div>
         ) : (
           <div className="grid place-content-center md:grid-cols-3 lg:grid-cols-4 gap-3 p-14">
-            {images.map((image, idx) => {
+            {images.map((image) => {
               return (
                 <div key={image.id} className="group relative">
                   <img
@@ -224,7 +228,6 @@ function Home() {
                 </div>
               );
             })}
-            ;
           </div>
         )}
       </div>

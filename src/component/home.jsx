@@ -174,7 +174,7 @@ function Home() {
             </button>
           </div>
         </div>
-        <div className="text-center font-bold">
+        <div className="text-center text-lg font-bold">
           <p>Welcome to Mide's Gallery!</p>
           <p>Log in to use drag and drop</p>
         </div>
@@ -183,7 +183,7 @@ function Home() {
           <input
             type="text"
             placeholder="Search anything"
-            className="p-2 rounded-lg border-2 text-black border-slate-800"
+            className="p-2 rounded-lg border-2 text-black"
             name="query"
             value={query}
             onChange={changeHandler}
@@ -195,7 +195,7 @@ function Home() {
           />
           <button
             onClick={searchImages}
-            className="p-2 rounded-lg border-2  bg-blue-800 text-white"
+            className="p-2 rounded-lg border-2 font-bold border-blue-600  bg-blue-600 text-white"
           >
             Search
           </button>
@@ -234,7 +234,7 @@ function Home() {
       <div className="flex justify-center items-center p-4">
         <button
           onClick={loadMoreImages}
-          className="p-2 font-bold text-lg bg-blue-700 rounded-lg"
+          className="p-2 font-bold text-white bg-blue-600 rounded-lg"
         >
           Load more
         </button>

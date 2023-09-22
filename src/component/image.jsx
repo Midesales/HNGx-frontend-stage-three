@@ -223,7 +223,7 @@ function Image() {
           <input
             type="text"
             placeholder="Search anything"
-            className="p-2 rounded-lg border-2 text-black border-slate-800"
+            className="p-2 rounded-lg  text-black"
             name="query"
             value={query}
             onChange={changeHandler}
@@ -235,7 +235,7 @@ function Image() {
           />
           <button
             onClick={searchImages}
-            className="p-2 rounded-lg border-2 bg-blue-800 text-white"
+            className="p-2 rounded-lg  font-bold border-blue-600 bg-blue-600 text-white"
           >
             Search
           </button>
@@ -302,7 +302,7 @@ function Image() {
       <div className="flex justify-center items-center p-4">
         <button
           onClick={loadMoreImages}
-          className="p-2 font-bold text-lg bg-blue-700 rounded-lg"
+          className="p-2 font-bold text-white bg-blue-600 rounded-lg"
         >
           Load more
         </button>

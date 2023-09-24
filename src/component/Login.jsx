@@ -28,37 +28,45 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center   min-h-screen bg-slate-400">
-      <div className="border max-w-5xl rounded-lg p-4 m-8 border-slate-400 bg-slate-500">
-        <h2 className="text-4xl font-bold text-center py-5">Log in</h2>
+    <div className="flex flex-col items-center justify-center   min-h-screen bg-gray-100">
+      <div className="border max-w-5xl rounded-lg p-4 m-8 bg-white px-10">
+        <h2 className="text-xl font-bold PX-5 py-2">LOGIN</h2>
         <form onSubmit={handleSubmit} className="flex flex-col">
-          <label className="font-semibold  text-lg">Username</label>
-          <input
-            type="text"
-            placeholder="Enter username"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="rounded-md p-2 w-full"
-          />
-          <label className="font-semibold text-lg">Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            className="rounded-md p-2 w-full"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="py-2">
+            <label className="font-semibold  text-lg pb-3">Username</label>
+            <input
+              type="text"
+              placeholder="Enter username"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="rounded-md p-2 w-full border-2 border-slate-200 outline-none"
+            />
+          </div>
+          <div className="py-2">
+            <label className="font-semibold text-lg pb-3">Password</label>
+            <input
+              type="password"
+              className= "p-2 w-full border-2 border-slate-200 outline-none"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
           <button
-            className="mt-4 rounded-lg w-full text-center bg-slate-900 text-white p-2"
+            className="mt-4 rounded-lg w-full text-center bg-red-400  text-white p-2"
             disabled={isLoading} // Disable the button when loading is true.
           >
-            {isLoading ? "Logging in..." : "Log in"}
+            {isLoading ? "LOGGING IN..." : "LOGIN"}
           </button>
         </form>
         <div>
           <p className="font-bold text-red-600 text-lg text-center">{error}</p>
-          <p className="font-bold text-black text-lg text-center py-2">
-            Don't have an account? <a href="/Signup" className="text-[blue]"> Sign up</a>
+          <p className="font-semibold lg:text-lg text-center py-2">
+            Don't have an account?{" "}
+            <a href="/Signup" className="underline">
+              {" "}
+              Sign up
+            </a>
           </p>
         </div>
       </div>

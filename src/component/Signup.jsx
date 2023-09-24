@@ -37,49 +37,55 @@ function Signup() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-400">
-      <div className="border max-w-5xl rounded-lg p-4 m-8 border-gray-400 bg-gray-500">
-        <h2 className="text-4xl font-bold text-center py-4">Sign Up</h2>
+    <div className="flex flex-col items-center justify-center   min-h-screen bg-gray-100">
+      <div className="border max-w-5xl rounded-lg p-4 m-8 bg-white px-10">
+        <h2 className="text-xl font-bold PX-5 py-2">SIGN UP</h2>
         <form onSubmit={handleSubmit} className="flex flex-col">
-          <label className="font-semibold text-lg">Username</label>
-          <input
-            type="email"
-            placeholder="Enter email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="rounded-md p-2 w-full"
-          />
-          <label htmlFor="password" className="font-semibold text-lg">
-            Password
-          </label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            className="rounded-md p-2 w-full"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <label htmlFor="confirmPassword" className="font-semibold text-lg">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            placeholder="Confirm password"
-            className="rounded-md p-2 w-full"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+          <div className="py-2">
+            <label className="font-semibold text-lg pb-3">Username</label>
+            <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="rounded-md p-2 w-full border-2 border-slate-200 outline-none"
+            />
+          </div>
+          <div className="py-2">
+            <label className="font-semibold text-lg pb-3">
+              Password
+            </label>
+            <input
+              type="password"
+              className="rounded-md p-2 w-full border-2 border-slate-200 outline-none"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="py-2">
+            <label
+              className="font-semibold text-lg pb-3"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              className="rounded-md p-2 w-full border-2 border-slate-200 outline-none"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+
           <button
             type="submit"
-            className="mt-4 rounded-lg w-full text-center bg-[blue] text-white p-2"
+            className="mt-4 rounded-lg w-full text-center bg-red-400  text-white p-2"
           >
-            Sign up
+            SIGN UP
           </button>
         </form>
 
-        <p className="text-center font-bold py-2 text-sm lg:text-lg">
+        <p className="font-semibold lg:text-lg text-center py-2">
           Already have an account?{" "}
-          <a href="/Login" className="text-[blue]">
+          <a href="/Login" className="underline">
             Log in
           </a>
         </p>

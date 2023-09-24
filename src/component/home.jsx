@@ -178,7 +178,7 @@ function Home() {
             </button>
           </div>
         </div>
-        <div className="text-center text-lg font-bold">
+        <div className="text-center text-sm md:text-lg lg:text-xl font-bold">
           <p>Welcome to Mide's Gallery!</p>
           <p>Log in to use drag and drop</p>
         </div>

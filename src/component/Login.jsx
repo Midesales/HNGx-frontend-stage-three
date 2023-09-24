@@ -36,7 +36,6 @@ const Login = () => {
             <label className="font-semibold  text-lg pb-3">Username</label>
             <input
               type="text"
-              placeholder="Enter username"
               onChange={(e) => setEmail(e.target.value)}
               required
               className="rounded-md p-2 w-full border-2 border-slate-200 outline-none"

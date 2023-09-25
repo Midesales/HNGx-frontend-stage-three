@@ -1,10 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { UserAuth } from "../context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners"; // Import the loading spinner
-import background from '../image/bg-image.jpg'
+import background from "../image/bg-image.jpg";
 import axios from "axios";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"; // Import from react-beautiful-dnd
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import {TouchBackend} from "react-dnd-touch-backend";
+
+
+const isTouchDevice = () => {
+  if ("ontouchstart" in window) {
+    return true;
+  }
+  return false;
+};
 
 function Image() {
   const [images, setImages] = useState([]);
@@ -12,7 +22,7 @@ function Image() {
   const [isFetching, setIsFetching] = useState(true);
   const [query, setQuery] = useState("");
   const { user, logout } = UserAuth();
-  const[errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState("");
   const Navigate = useNavigate();
 
   const perPage = 12; // Number of images per page
@@ -46,63 +56,56 @@ function Image() {
     fetchImages(apiUrl);
   }, [currentPage]);
 
+  // SEARCHING IMAGES
+  const searchImages = () => {
+    // Reset images and current page when performing a new search
+    setImages([]);
+    setCurrentPage(1);
+    setIsFetching(true);
 
-  //SEARCHING IMAGES
- const searchImages = () => {
-   // Reset images and current page when performing a new search
-   setImages([]);
-   setCurrentPage(1);
-   setIsFetching(true);
+    if (query === "") {
+      // Show "Enter a value" error message
+      setErrorMessage("Enter a value");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    } else {
+      // If query is not empty, perform a search
+      const searchUrl = `https://api.pexels.com/v1/search?query=${query}&per_page=${perPage}&page=${currentPage}`;
 
-   if (query === "") {
-     // Show "Enter a value" error message
-     setErrorMessage("Enter a value");
-     setTimeout(() => {
-       setErrorMessage("");
-     }, 3000);
+      axios
+        .get(searchUrl, {
+          headers: {
+            Authorization: API_KEY,
+          },
+        })
+        .then((response) => {
+          if (response.data.photos.length === 0) {
+            // If no results are found, show "Search failed" error message curated images are displayed
+            setImages([]); // Clear images
+            setErrorMessage("Search failed");
 
-
-   } else {
-
-     // If query is not empty, perform a search
-     const searchUrl = `https://api.pexels.com/v1/search?query=${query}&per_page=${perPage}&page=${currentPage}`;
-
-     axios
-       .get(searchUrl, {
-         headers: {
-           Authorization: API_KEY,
-         },
-       })
-       .then((response) => {
-         if (response.data.photos.length === 0) {
-           // If no results are found, show "Search failed" error message curated images are display
-           setImages([]); // Clear images
-           setErrorMessage("Search failed");
-
-           setTimeout(() => {
-             setErrorMessage("");
-           }, 3000);
-
-         } else {
-           // Append the new images to the existing images array
-           setImages((prevImages) => [...prevImages, ...response.data.photos]);
-           setIsFetching(false);
-         }
-       })
-       .catch((error) => {
-         console.error("Error searching images:", error);
-         setIsFetching(false);
-       });
-   }
- };
-
+            setTimeout(() => {
+              setErrorMessage("");
+            }, 3000);
+          } else {
+            // Append the new images to the existing images array
+            setImages((prevImages) => [...prevImages, ...response.data.photos]);
+            setIsFetching(false);
+          }
+        })
+        .catch((error) => {
+          console.error("Error searching images:", error);
+          setIsFetching(false);
+        });
+    }
+  };
 
   const changeHandler = (e) => {
     setQuery(e.target.value);
   };
 
-
-  //LOGGING OUT
+  // LOGGING OUT
   const handleLogout = async (e) => {
     try {
       await logout();
@@ -113,8 +116,7 @@ function Image() {
     }
   };
 
-
-  //LOADING MORE IMAGES
+  // LOADING MORE IMAGES
   const loadMoreImages = () => {
     // Increment the current page when the "Load more" button is clicked
     setCurrentPage((prevPage) => prevPage + 1);
@@ -165,37 +167,74 @@ function Image() {
     }
   };
 
+  const type = "Image"; // Unique identifier for the draggable element type
 
+  const ImageItem = ({ image, index }) => {
+    const ref = useRef(null);
 
-  
-//DRAG AND DROP
-  const onDragEnd = (result) => {
-  if (!result.destination) {
+    const [, drop] = useDrop({
+      accept: type,
+      hover(item) {
+        // Handle hover logic
+        if (!ref.current) {
+          return;
+        }
+        const dragIndex = item.index;
+        const hoverIndex = index;
+        // If the dragged element is hovered in the same place, then do nothing
+        if (dragIndex === hoverIndex) {
+          return;
+        }
+        // If it is dragged around other elements, then move the image and set the state with position changes
+        moveImage(dragIndex, hoverIndex);
+        /*
+          Update the index for the dragged item directly to avoid flickering
+          when the image was half dragged into the next
+        */
+        item.index = hoverIndex;
+      },
+    });
+
+    const [{ isDragging }, drag] = useDrag(() => ({
+      type: type, // Use the same type
+      item: { id: image.id, index },
+      collect: (monitor) => {
+        return {
+          isDragging: monitor.isDragging(),
+        };
+      },
+    }));
+
+    drag(drop(ref));
+
     
-    return;
-  }
 
-  const { source, destination } = result;
+    return (
+      <div
+        ref={ref}
+        style={{ opacity: isDragging ? 0.5 : 1 }}
+        className="group relative"
+      >
+        <img
+          src={image.src.large}
+          alt={image.photographer}
+          className="w-64 h-64 lg:w-80 lg:h-80 object-cover"
+        />
+        <p className="opacity-0 group-hover:opacity-100 absolute bottom-2 text-white left-2 p-2 bg-slate-800 font-bold">
+          {image.photographer}
+        </p>
+      </div>
+    );
+  };
 
-  if (source.index !== destination.index) {
-   
+  const moveImage = (fromIndex, toIndex) => {
     const updatedImages = [...images];
-
-    
-    const sourceImage = updatedImages[source.index];
-    const destinationImage = updatedImages[destination.index];
-
-    
-    updatedImages[source.index] = destinationImage;
-    updatedImages[destination.index] = sourceImage;
-
-   
+    const [movedImage] = updatedImages.splice(fromIndex, 1);
+    updatedImages.splice(toIndex, 0, movedImage);
     setImages(updatedImages);
-  }
-};
+  };
 
-
-
+  const backendForDND = isTouchDevice() ? TouchBackend : HTML5Backend;
 
   return (
     <div className="relative">
@@ -253,50 +292,13 @@ function Image() {
             <ClipLoader loading={isFetching} size={150} />
           </div>
         ) : (
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="image-list">
-              {(provided, snapshot) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className="grid place-content-center md:grid-cols-3 lg:grid-cols-4 gap-3 p-14"
-                >
-                  {images.map((image, idx) => {
-                    let index;
-                    return (
-                      <Draggable
-                        key={image.id}
-                        draggableId={image.id.toString()}
-                        index={idx}
-                      >
-                        {(provided) => {
-                          index = idx;
-                          return (
-                            <div
-                              className="group relative"
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <img
-                                src={image.src.large}
-                                alt={image.photographer}
-                                className="w-64 h-64 lg:w-80 lg:h-80 object-cover"
-                              />
-                              <p className="opacity-0 group-hover:opacity-100 absolute bottom-2 text-white left-2 p-2 bg-slate-800 font-bold">
-                                {image.photographer}
-                              </p>
-                            </div>
-                          );
-                        }}
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DndProvider backend={HTML5Backend}>
+            <div className="grid place-content-center md:grid-cols-3 lg:grid-cols-4 gap-3 p-14">
+              {images.map((image, index) => (
+                <ImageItem key={image.id} image={image} index={index} />
+              ))}
+            </div>
+          </DndProvider>
         )}
       </div>
       <div className="flex justify-center items-center p-4">
@@ -307,7 +309,7 @@ function Image() {
           Load more
         </button>
       </div>
-      <footer className="flex justify-center  bottom-0 w-full p-4 font-bold">
+      <footer className="flex justify-center bottom-0 w-full p-4 font-bold">
         <p>&copy; Adeagbo Ayomide</p>
       </footer>
     </div>

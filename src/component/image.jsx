@@ -10,10 +10,7 @@ import {TouchBackend} from "react-dnd-touch-backend";
 
 
 const isTouchDevice = () => {
-  if ("ontouchstart" in window) {
-    return true;
-  }
-  return false;
+  return "ontouchstart" in window;
 };
 
 function Image() {
@@ -292,7 +289,7 @@ function Image() {
             <ClipLoader loading={isFetching} size={150} />
           </div>
         ) : (
-          <DndProvider backend={HTML5Backend}>
+          <DndProvider backend={backendForDND}>
             <div className="grid place-content-center md:grid-cols-3 lg:grid-cols-4 gap-3 p-14">
               {images.map((image, index) => (
                 <ImageItem key={image.id} image={image} index={index} />

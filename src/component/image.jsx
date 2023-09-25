@@ -10,7 +10,12 @@ import {TouchBackend} from "react-dnd-touch-backend";
 
 
 const isTouchDevice = () => {
-  return "ontouchstart" in window;
+  if ("ontouchstart" in window) {
+  
+    return true;
+    
+  }
+  return false;
 };
 
 function Image() {
